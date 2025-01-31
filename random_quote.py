@@ -22,6 +22,24 @@ def display_multiple_quotes(n):
         return
     for quote in random.sample(quotes, n):
         print(f'- {quote}')
+        
+ def save_quotes_to_file(filename="quotes.txt"):
+    with open(filename, "w") as file:
+        for quote in quotes:
+            file.write(quote + "\n")
+    print("Quotes saved to file successfully!")
+
+def load_quotes_from_file(filename="quotes.txt"):
+    global quotes
+    try:
+        with open(filename, "r") as file:
+            quotes = [line.strip() for line in file.readlines()]
+        print("Quotes loaded from file successfully!")
+    except FileNotFoundError:
+        print("No saved quotes found.")
+
+if __name__ == "__main__":
+    load_quotes_from_file()       
 
 if __name__ == "__main__":
     while True:
@@ -42,6 +60,9 @@ if __name__ == "__main__":
             n = int(input("Enter number of quotes to display: "))
             display_multiple_quotes(n)
         elif choice == "4":
+            save_quotes_to_file()
+           
+        elif choice == "5":
             print("Goodbye!")
             break
         else:
